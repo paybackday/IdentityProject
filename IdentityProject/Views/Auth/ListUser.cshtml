@@ -1,0 +1,38 @@
+﻿@model List<AppUser>
+@{
+    ViewData["Title"] = "ListUser";
+}
+
+<table id="example" class="table table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>PhoneNumber</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.UserName</td>
+                <td>@user.Email</td>
+                <td>@user.PhoneNumber</td>
+
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>PhoneNumber</th>
+        </tr>
+    </tfoot>
+</table>
+
+<script>
+        $(document).ready(function () {
+        $('#example').DataTable();
+    });
+</script>

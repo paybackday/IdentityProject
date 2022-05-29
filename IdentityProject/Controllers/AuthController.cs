@@ -2,6 +2,7 @@
 using IdentityProject.VMClasses;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace IdentityProject.Controllers
@@ -18,7 +19,7 @@ namespace IdentityProject.Controllers
         [HttpGet]
         public IActionResult ListUser() 
         {
-            return View(_userManager.Users);
+            return View(_userManager.Users.ToList());
         }
 
         [HttpGet]
@@ -39,6 +40,8 @@ namespace IdentityProject.Controllers
                 IdentityResult identityResult = await _userManager.CreateAsync(appUser,appUserVM.Sifre);
                 if (identityResult.Succeeded)
                     return RedirectToAction("ListUser", "Auth");
+                else
+                    identityResult.Errors.ToList().ForEach(e => ModelState.AddModelError(e.Code, e.Description)); //Add errors to ModelState
             }
             return View(); //Varsa view i don ve hatalari bas.
         }
